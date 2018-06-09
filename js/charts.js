@@ -49,16 +49,22 @@ function updateData() {
 
     // Corvert the date into a user friendly format. In the DB, it looks like
     // this: mmddyyy. Ex: 0220118 = Feb 20, 2018.
-    var year = dataObject.date.substring(5);
-    d.setYear(20 + year); // 20 + 18 = 2018.
+    // var year = dataObject.date.substring(5);
+    // d.setYear(20 + year); // 20 + 18 = 2018.
 
-    var month = dataObject.date.substring(0,2) - 1;
-    d.setMonth(month);
+    // var month = dataObject.date.substring(0,2) - 1;
+    // d.setMonth(month);
 
-    var day = dataObject.date.substring(2,4);
-    d.setDate(day);
+    // var day = dataObject.date.substring(2,4);
+    // d.setDate(day);
+    var month = dataObject.date.slice(0,2);
+    if (month[0] === "0")
+      month = month.slice(1,2);
+    var day = dataObject.date.slice(2,4);
+    if (day[0] === "0")
+      day = day.slice(1,2);
 
-    labelData.push(d.getMonth() + "/"+ d.getDate());
+    labelData.push(month + "/"+ day);
   });
   user_historical_data = {
     series: seriesData,

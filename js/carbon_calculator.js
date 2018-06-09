@@ -25,9 +25,9 @@ var water_total;
 var carbon_num_total;
 
 // ONID Variables
-var uid;
+var uid = null;
 var firstName = "";
-var primaryAffiliation;
+var primaryAffiliation= null;
 var historicalData;
 
 // Data array used for database upload/download
@@ -35,6 +35,7 @@ var data = new Array(5);
 
 var user_type = "on_campus";
 var user_num = 1;
+var energy_type = "simple";
 
 
 /*******************************************************************************
@@ -78,13 +79,14 @@ function trans_car_conv() {
   } else if (car_type == "motorcycle") {
     result = $("#trans_input_car_miles").val() * motorcycle / 4;
   }
-  return result;
+  //multiply by 52 for per year;
+  return result * 52;
 }
 
 // Source: https://www.buses.org/assets/images/uploads/general/Report%20-%20Energy%20Use%20and%20Emissions.pdf
 function trans_short_bus_conv() {
   var shortbus = 0.136 //in kg C02e/(passenger mile)
-  return $("#trans_input_short_bus_miles").val() * shortbus;
+  return $("#trans_input_short_bus_miles").val() * shortbus * 12;
 }
 
 // Source: https://www.buses.org/assets/images/uploads/general/Report%20-%20Energy%20Use%20and%20Emissions.pdf
@@ -116,7 +118,7 @@ function trans_airplane_conv() {
 function consumption_clothing_conv() {
   var amount_spent = $("#clothing_per_month").val();
   // Dollars * 0.3kg/english pound * conversion rate (updated 5.5.17) * 12 months.
-  return amount_spent * .30 * 0.77 * 12;
+  return amount_spent * .750 * 12;
 }
 
 // Source: Carbon Calculator Spreadsheet:
@@ -130,29 +132,29 @@ function furniture_appliance_per_year() {
 // https://docs.google.com/spreadsheets/d/1FbkcWkPXmCwyWeBAtjH0eaR_kPtbDcLa3SFdK2iswAY/edit#gid=1428571633
 function paper_products_per_month() {
   var money_spent = $('#paper_products_per_month').val();
-  return 2.1 * money_spent;
+  return 2.1 * money_spent * 12;
 }
 
 // Source: Carbon Calculator Spreadsheet:
 // https://docs.google.com/spreadsheets/d/1FbkcWkPXmCwyWeBAtjH0eaR_kPtbDcLa3SFdK2iswAY/edit#gid=1428571633
 function personal_care_per_month() {
   var money_spent = $('#personal_care_per_month').val();
-  return 0.954 * money_spent;
+  return 0.954 * money_spent * 12;
 }
 
 // Source: Carbon Calculator Spreadsheet:
 // https://docs.google.com/spreadsheets/d/1FbkcWkPXmCwyWeBAtjH0eaR_kPtbDcLa3SFdK2iswAY/edit#gid=1428571633
 function electronics_per_year() {
   var money_spent = $('#electronics_per_year').val();
-  return 0.396 * money_spent;
+  return 1.28 * money_spent;
 }
 
 // Source: http://www.carbonfootprint.com/calculatorfaqs.html
 function consumption_recreation_conv() {
-  var amount_spent = $("#hotels_per_month").val();
+  //var amount_spent = $("#hotels_per_month").val();
   var amount_spent_activities = $("#recreation_per_month").val();
   // No description for this calculation. KC provided source.
-  return (amount_spent * .2212 / 4 * 52) + (amount_spent_activities * .3871 / 4 * 52);
+  return (amount_spent_activities * .711 * 12);
 }
 
 // http://www.co2list.org/files/carbon.htm
@@ -167,18 +169,30 @@ function consumption_plastic_bottle_conv() {
 // Originally from SCU.
 function consumption_coffee_conv() {
   var coffee_frequency = $("#food_coffee_frequency").val();
-  var coffee_type = $("#food_coffee_type").val();
+  //var coffee_type = $("#food_coffee_type").val();
 
-  var coffee_type_num = 0;
-  if (coffee_type == 'black_coffee') {
-    coffee_type_num = 21;
-  } else if (coffee_type == 'cream_sugar') {
-    coffee_type_num = 71;
-  } else if (coffee_type == 'latte') {
-    coffee_type_num = 340;
+  var factor = 0;
+  var divsior = 0;
+  if ($("#drinks_coffeecream").val()) {
+    factor += .071;
+    divsior++;
   }
+  else if ($("#drinks_coffee").val()) {
+    factor += .021;
+    divsior++;
+  }
+  if ($("#drinks_cap").val()) {
+    factor += .235
+    divsior++;
+  }
+  if ($("#drinks_latte").val()) {
+    factor += .34
+    divsior++;
+  }
+  if (divsior > 0)
+    factor /= divsior;
 
-  return coffee_type_num * coffee_frequency * 1 / 1000 * 52; // Calculation is per
+  return factor * coffee_frequency * 52; // Calculation is per
 }
 
 /*******************************************
@@ -190,7 +204,7 @@ function energy_audit_dorm_conv() //kwh to kg source: https://www.epa.gov/sites/
   var result = 0;
   var total_appliance = 14;
   var complex = 0;
-  var simple_complex = $("#simple_complex_complex").val();
+  var simple_complex = energy_type;
   if (simple_complex == 'complex') {
     complex = 1;
   } else {
@@ -213,7 +227,7 @@ function energy_audit_dorm_conv() //kwh to kg source: https://www.epa.gov/sites/
     result += ((appliance_total * appliance_watts * 0.001 * appliance_active_usage * 0.3821) + (appliance_total * appliance_watts * 0.001 * appliance_passive_usage * 0.10 * 0.3821)) * complex;
     iteration++;
   }
-  return result;
+  return result * 365;
 
 }
 
@@ -277,7 +291,7 @@ function simple_option() {
   var complex = 0;
   var electricity = $("#electricity_usage").val();
   var gas = $("#heat_usage").val();
-  var simple_complex = $("input[name='simple_complex']:checked").val();
+  var simple_complex = energy_type;
   if (simple_complex == 'complex') {
     complex = 0;
   } else {
@@ -286,7 +300,7 @@ function simple_option() {
 
   result = (complex * ((electricity * .3821 / .1078) + (gas * 6.103 / 1.08)));
 
-  return result;
+  return result * 12;
 }
 
 function energy_baseline_conv() {
@@ -305,7 +319,7 @@ function energy_baseline_conv() {
   var popOfOSU = 36059;
   var conversionFromKWHtoKgCO2e = 0.3821;
 
-  result = (((totalInKWH - totalDormInKWH) * user_num / popOfOSU + electricity_dorms_kwh()) +simple_option()) * conversionFromKWHtoKgCO2e;
+  result = (((totalInKWH - totalDormInKWH) * user_num / popOfOSU + electricity_dorms_kwh())*0.3821 + simple_option());
   return result;
 }
 
@@ -492,6 +506,10 @@ function set_user_type(type) {
   }
 }
 
+function set_energy_type(value) {
+  energy_type = value;
+}
+
 // Initially draws the graphs when the webpage loads.
 window.onload = function() {
 
@@ -614,13 +632,18 @@ function downloadHistData() {
 
   // Send the request.
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("POST", "../php/userInfo.php?upload=false&userObject=" + userObject, false); // False for synchronous request.
+  xmlHttp.open("POST", "./php/userInfo.php?upload=false&userObject=" + userObject, false); // False for synchronous request.
   xmlHttp.send(null);
   if(xmlHttp.responseText != "Error: No such user.") {
     historicalData = JSON.parse(xmlHttp.responseText).data;
+    //console.log(historicalData);
   } else {
     console.log("Error downloading historical data.");
   }
+}
+
+function display_comment(v,b) {
+  
 }
 
 // Creates a JSON object for the current user and sends a POST request to
@@ -632,17 +655,17 @@ function updateDB() {
 
   // Get location information
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET", "../php/getUserLocation.php", false); // false for synchronous request
+  xmlHttp.open("GET", "./php/getUserLocation.php", false); // false for synchronous request
   xmlHttp.send(null);
-  var res = xmlHttp.responseText; // PHP script responds with a JSON object.
-
+  var res = JSON.parse(xmlHttp.responseText); // PHP script responds with a JSON object.
+  delete res["__deprecation_message__"];
   var dataObject = {
     // Uses getMonth(), getDate(), and getYear() from Javascript Date object.
     // The slicing stuff ensures that dates will be saved in 2 digit format.
     // For example, January will be 01 instead of just 1.
     "date": "" + ("0" + (d.getMonth() + 1)).slice(-2) + ("0" + d.getDate()).slice(-2) + d.getYear(),
     "totals": data,
-    "location": JSON.parse(res)
+    "location": res
   };
 
   // Next, create the JSON object for the user.
@@ -652,13 +675,17 @@ function updateDB() {
     "primaryAffiliation": primaryAffiliation,
     "data": [dataObject]
   };
-
+  
   userObject = JSON.stringify(userObject); // Stringify JSON for HTTP POST body.
-
   // Lastly, send the request.
-
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("POST", "../php/userInfo.php?upload=true&userObject=" + userObject, false); // False for synchronous request.
-  xmlHttp.send(null);
-  res = xmlHttp.responseText;
+  console.log(userObject);
+  xmlHttp2 = new XMLHttpRequest();
+  xmlHttp2.open("GET", "./php/userInfo.php?upload=true&userObject=" + userObject, false); // False for synchronous request.
+  
+  xmlHttp2.onload = function() {
+    console.log(this.responseText)
+  }
+  // res = xmlHttp.responseText;
+  // console.log(res);
+  xmlHttp2.send(null);
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+hotelhto<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -69,7 +69,7 @@
     $(document).ready(function() {
       $('[data-toggle="tooltip"]').tooltip();
       $(".radio button").click((event) => {
-        $(".radio button").css({"color":"#000000","borderColor":"#000000"});
+        $("label button",event.target.parentNode.parentNode).css({"color":"#000000","borderColor":"#000000"});
         event.target.style.color = "#D73F09";
         event.target.style.borderColor = "#D73F09";
       });
@@ -234,30 +234,30 @@
       <div id="collapse3" class="panel-collapse collapse">
         <div class="panel-body">
           <div class="question">
-            <p>How much do you spend on furniture and appliances each year?</p>
+            <p>How much do you spend on <span class="highlight">furniture</span> and <span class="highlight">appliances</span> each year?</p>
             <input id="furniture_appliance_per_year" type="number" min="0" step="0.01" size="2" maxlength="4" /> dollars per year
           </div>
           <div class="question">
-            <p>How much do you spend on paper products (newspapers, books, textbooks, magazines etc.) each month?</p>
+            <p>How much do you spend on <span class="highlight">paper products</span> (newspapers, books, textbooks, magazines etc.) each month?</p>
             <input id="paper_products_per_month" type="number" min="0" step="0.01" size="2" maxlength="4" /> dollars per month
           </div>
           <div class="question">
-            <p>How much do you spend on personal care and cleaning supplies each month?</p>
+            <p>How much do you spend on <span class="highlight">personal care</span> and <span class="highlight">cleaning supplies</span> each month?</p>
             <input id="personal_care_per_month" type="number" min="0" step="0.01" size="2" maxlength="4" /> dollars per month
           </div>
           <div class="question">
-            <p>How much do you spend on computers, tablets, phones, and other electronics in a year?</p>
+            <p>How much do you spend on computers, tablets, phones, and other <span class="highlight">electronics</span> in a year?</p>
             <input id="electronics_per_year" type="number" min="0" step="0.01" size="2" maxlength="4" /> dollars per year <a href="#" data-toggle="tooltip" title="" data-original-title="If you've owned these goods for more than a year, approximate how much it's costed you each year. EX: if you've had a $800 laptop for 4 years, that's $200 a year."><span class="glyphicon glyphicon-info-sign"></span></a>
           </div>
 
 
           <div class="question">
-            <p>How much do you spend on new clothing in a given month?</p>
+            <p>How much do you spend on new <span class="highlight">clothing</span> in a given month?</p>
             <input id="clothing_per_month" type="number" size="2" maxlength="4" /> dollars per month
           </div>
 
           <div class="question">
-            <p>How much do you spend on entertainment and other recreational activities per month?</p>
+            <p>How much do you spend on <span class="highlight">entertainment</span> and other recreational activities per month?</p>
             <input id="recreation_per_month" type="number" size="2" maxlength="4" /> dollars per month <a href="#" data-toggle="tooltip" title="Examples: Going to a movie theater, concert, bowling alley, etc"><span class="glyphicon glyphicon-info-sign"></span></a>
           </div>
 
@@ -311,11 +311,13 @@
             // This script reveals & hides the simple & complex energy tables
 
             function show_simple() {
+              set_energy_type("simple");
               $('#energy_complex').collapse('hide');
               $('#energy_simple').collapse('show');
             }
 
             function show_complex() {
+              set_energy_type("complex");
               $('#energy_simple').collapse('hide');
               $('#energy_complex').collapse('show');
             }
@@ -617,7 +619,7 @@
                   <p class="foodNarrative">
                     Example Portions: 1/2 Pound Burger, 4-5 Ounces of Cooked Steak
                   </p>
-                  <input class="ntableInput" type="number" id="meat_serv" size="4" maxlength="4">
+                  <input class="ntableInput" type="number" id="meat_serv" size="4" maxlength="4"> portions
                 </div>
 
               <div class="question">
@@ -643,7 +645,7 @@
                   <p class="foodNarrative">
                     Example Portions: 3 Eggs, 1 Cup of Yogurt or Milk, 4 Slices of Cheese
                   </p>
-                  <input type="number" id="dairy_serv" size="4" maxlength="4">
+                  <input type="number" id="dairy_serv" size="4" maxlength="4"> portions
                 </div>
 
               <div class="question">
@@ -681,7 +683,7 @@
                   <p class="foodNarrative">
                     Example Portions: 1 Apple, Orange, or Banana; 1 Cup of Diced Fruit; 2 Apricots, Kiwis or Plums; 1 Potato or Tomato; 1/2 Cup of Marinara Sauce; 3/4 Cup of Cooked Vegetables; 1 Cup of Salad
                   </p>
-                  <input type="number" id="fruits_vegetables_serv" size="4" maxlength="4">
+                  <input type="number" id="fruits_vegetables_serv" size="4" maxlength="4"> portions
                 </div>
 
               <div class="question">
@@ -716,7 +718,7 @@
                   <p class="foodNarrative">
                     Example Portions: 2 Slices of Bread; 1 Bagel, Roll or English Muffin; 1/2 Cup of Rice, Pasta, Quinoa or Oatmeal; 1 Cup of Dry Cereal, 1 Slice of Cake; 2 Medium Chocolate Chip Cookies
                   </p>
-                  <input type="number" id="grains_serv" size="4" maxlength="4">
+                  <input type="number" id="grains_serv" size="4" maxlength="4"> portions
                 </div>
 
             <div class="question">
@@ -745,7 +747,7 @@
                 <p class="foodNarrative">
                     Example Portions: 4-5 Ounces of Cooked Chicken/Turkey, 7 Chicken Nuggets, 4 Chicken Wings or 5.4 Slices of Deli Turkey
                 </p>
-                <input type="number" id="poultry_serv" size="4" maxlength="4">
+                <input type="number" id="poultry_serv" size="4" maxlength="4"> portions
               </div>
               
 
@@ -766,7 +768,7 @@
                   <p class="foodNarrative">
                     Example Portions: 4-5 Ounces of Cooked Pork
                   </p>
-                  <input type="number" id="pork_serv" size="4" maxlength="4">
+                  <input type="number" id="pork_serv" size="4" maxlength="4"> portions
                 </div>
 
               <div class="question">
@@ -798,7 +800,7 @@
                   <p class="foodNarrative">
                     Example Portions: 4-5 Ounces of Cooked Fish, 8 Pieces of Sushi/Sashimi, 10 Pieces of Shrimp, 4-5 Large Scallops or 6-8 Clams
                   </p>
-                  <input type="number" id="seafood_serv" size="4" maxlength="4">
+                  <input type="number" id="seafood_serv" size="4" maxlength="4"> portions
                 </div>
 
 
@@ -832,7 +834,7 @@
                 <p class="foodNarrative">
                     Example Portions: 24 Almonds, 18 Cashews, 35 Peanuts, 12 Macadamia Nuts or 7 Walnuts
                 </p>
-                <input type="number" id="nuts_serv" size="4" maxlength="4">
+                <input type="number" id="nuts_serv" size="4" maxlength="4"> portions
               </div>
 
             <div class="question">
@@ -860,7 +862,7 @@
                  	</select> -->
                   <script>
                     function checkDrinkChecks() {
-                      var elements = [$("#drinks_coffee")[0],$("#drinks_coffeecream")[0],$("#drinks_latte")[0],$("#drinks_tea")[0]];
+                      var elements = [$("#drinks_coffee")[0],$("#drinks_coffeecream")[0],$("#drinks_latte")[0],$("#drinks_cap")[0]];
                       var x = false;
                       elements.forEach(e => {
                         if (e.checked) {
@@ -875,10 +877,10 @@
                       }
                     }
                   </script>
-                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffee" value="black_coffee" name="Black Coffeee"> Black Coffee</input><br />
-                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffeecream" value="cream_coffee" name="Cream Coffeee"> Coffee w/Cream or Sugar</input><br />
-                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_latte" value="latte" name="Latte"> Lattes or Cappuccinos</input><br />
-                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_tea" value="tea" name="Tea"> Tea</input>
+                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffee" value=true name="drinks"> Black Coffee or Tea</input><br />
+                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffeecream" value="true" name="drinks"> Tear or Coffee w/Cream or Sugar</input><br />
+                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_cap" value=true name="drinks"> Cappuccinos</input><br />
+                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_latte" value=true name="drinks"> Lattes</input><br />
               </div>
 
               <div id="food_coffee_frequency_q" class="collapse question">
@@ -1045,7 +1047,7 @@
                         <tr>
                           <th>Category</th>
                           <th>kgCO<sub>2</sub>e / year
-                            <a href="#" data-toggle="tooltip" title="The additional&quot;e&quot; to kg CO2 means the carbon dioxide equivalent and is most widely used to measure greenhouse emissions.  All greenhouse gases have potential to warm the atmosphere, thus accounted for when you see emissions in terms of CO2e"><span class="glyphicon glyphicon-question-sign"></span></a>
+                            <a href="#" data-toggle="tooltip" title="The additional&quot;e&quot; to kg CO2 means the carbon dioxide equivalent and is most widely used to measure greenhouse emissions.  All greenhouse gases have potential to warm the atmosphere, thus accounted for when you see emissions in terms of CO2e"><span class="glyphicon glyphicon-info-sign"></span></a>
                           </th>
                           <th>Percentage</th>
                         </tr>
