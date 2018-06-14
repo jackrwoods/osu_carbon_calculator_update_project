@@ -1,4 +1,4 @@
-hotelhto<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -113,7 +113,8 @@ hotelhto<!DOCTYPE HTML>
     <h1>About the Calculator</h1><br />
     <p>This carbon footprint calculator has been developed to help members of the Oregon State University community understand the connection between their everyday actions and their carbon emissions. This is an important step in
       <a href="http://fa.oregonstate.edu/sustainability/planning-policy-assessment/institutional-carbon-neutrality/osu-carbon-planning">Oregon State University’s initiative to be carbon neutral by 2025.</a></p>
-    <p>This calculator is based on a calculator developed by Santa Clara University. For more information, please visit <a href="http://www.scu.edu/ethics/practicing/focusareas/environmental_ethics/carbon-footprint/create_calc.html">their website</a>.</p>
+    <p>This calculator is based on a calculator developed by Santa Clara University. For more information, please visit <a href="http://www.scu.edu/ethics/practicing/focusareas/environmental_ethics/carbon-footprint/create_calc.html">their website.</a></p>
+    <p>More information about the carbon emissions coefficients and calculations behind the calculator can be found <a href="https://docs.google.com/spreadsheets/d/15_SLm4PRYWDlH2yEMxlbn_qw73jaZuZo3hsgs0Mjd04/edit?usp=sharing">here.</a></p>
   </div>
 
   <!--Begin Carbon Calculator Questions-->
@@ -129,7 +130,7 @@ hotelhto<!DOCTYPE HTML>
           <div class="question">
             <p>To get started, please choose which of the following describes you:</p>
             <div class="radio">
-              <label><button type="button" name="radio_commuter" class="btn btn-default" value="on_campus" data-toggle="collapse" data-parent="#accordion" href="#collapse2" onclick="set_user_type('on_campus')"/>On Campus student</button></label>
+              <label><button type="button" name="radio_commuter" class="btn btn-default" value="on_campus" data-toggle="collapse" data-parent="#accordion" href="#collapse2" onclick="set_user_type('on_campus')"/>On Campus Student</button></label>
               <label><button type="button" name="radio_commuter" class="btn btn-default" value="full_commuter" data-toggle="collapse" data-parent="#accordion" href="#collapse2" onclick="set_user_type('full_commuter')"/>Off Campus Full-time Commuter Student or Staff</button></label>
               <label><button type="button" name="radio_commuter" class="btn btn-default" value="part_commuter" data-toggle="collapse" data-parent="#accordion" href="#collapse2" onclick="set_user_type('part_commuter')"/>Part-time Commuter Student or Staff</button></label>
             </div>
@@ -246,7 +247,7 @@ hotelhto<!DOCTYPE HTML>
             <input id="personal_care_per_month" type="number" min="0" step="0.01" size="2" maxlength="4" /> dollars per month
           </div>
           <div class="question">
-            <p>How much do you spend on computers, tablets, phones, and other <span class="highlight">electronics</span> in a year?</p>
+            <p>How much do you spend on computers, tablets, phones and other <span class="highlight">electronics</span> in a year?</p>
             <input id="electronics_per_year" type="number" min="0" step="0.01" size="2" maxlength="4" /> dollars per year <a href="#" data-toggle="tooltip" title="" data-original-title="If you've owned these goods for more than a year, approximate how much it's costed you each year. EX: if you've had a $800 laptop for 4 years, that's $200 a year."><span class="glyphicon glyphicon-info-sign"></span></a>
           </div>
 
@@ -399,7 +400,7 @@ hotelhto<!DOCTYPE HTML>
                 </div>
 
                 <div class="row">
-                  <div class="col-sm-2"><p class="complex-energy-small-header">Item: </p>IPod dock</div>
+                  <div class="col-sm-2"><p class="complex-energy-small-header">Item: </p>iPod dock</div>
                   <div class="col-sm-3"><p class="complex-energy-small-header">Quantity: </p><input id="appliance_4_total" type="number" size="4" maxlength="1" value="1" /></div>
                   <div class="col-sm-1"><p class="complex-energy-small-header">Watts: </p><input id="appliance_4_watts" type="hidden" value="100" />100</div>
                   <div class="col-sm-3"><p class="complex-energy-small-header">Active Use (Hours per day): </p><input id="appliance_4_active_usage" type="number" size="4" maxlength="4" /></div>
@@ -749,7 +750,7 @@ hotelhto<!DOCTYPE HTML>
                 </p>
                 <input type="number" id="poultry_serv" size="4" maxlength="4"> portions
               </div>
-              
+
 
               <div class="question">
                 <p>How many portions of <span class="highlight">pork</span> do you eat in a week on average?</p>
@@ -856,7 +857,7 @@ hotelhto<!DOCTYPE HTML>
                  					<option value="none">-Select-</option>
                  					<option value="black_coffee">Black Coffee</option>
                  					<option value="cream_sugar">Black Coffee + cream or sugar</option>
-                          <option value="latte">Cappuccino</option> 
+                          <option value="latte">Cappuccino</option>
                  					<option value="latte">Latte</option>
                  					<option value="black_coffee">Tea</option>
                  	</select> -->
@@ -878,7 +879,7 @@ hotelhto<!DOCTYPE HTML>
                     }
                   </script>
                   <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffee" value=true name="drinks"> Black Coffee or Tea</input><br />
-                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffeecream" value="true" name="drinks"> Tear or Coffee w/Cream or Sugar</input><br />
+                  <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_coffeecream" value="true" name="drinks"> Tea or Coffee w/Cream or Sugar</input><br />
                   <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_cap" value=true name="drinks"> Cappuccinos</input><br />
                   <input type="checkbox" onchange="checkDrinkChecks()" id="drinks_latte" value=true name="drinks"> Lattes</input><br />
               </div>
@@ -886,7 +887,7 @@ hotelhto<!DOCTYPE HTML>
               <div id="food_coffee_frequency_q" class="collapse question">
                 <p id="food_coffee_frequency_q">About how many cups do you drink per week? </p>
                   <input id="food_coffee_frequency" type="number" size="2" maxlength="4" /> cups
-                
+
               </div>
 
               <div class="question">
@@ -1133,7 +1134,11 @@ hotelhto<!DOCTYPE HTML>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12"><br />
+            <div class="col-md-12">
+              <br />
+              <a href="https://docs.google.com/spreadsheets/d/15_SLm4PRYWDlH2yEMxlbn_qw73jaZuZo3hsgs0Mjd04/edit?usp=sharing">More information on how these results were calculated</a>
+              <br />
+              <br />
               <div class="btn-group">
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse7">Previous</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse9">Next</button>
