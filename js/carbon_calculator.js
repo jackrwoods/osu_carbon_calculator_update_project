@@ -509,10 +509,10 @@ window.onload = function() {
   // Verify ONID Login by requesting for the User's Data
   var xmlHttp = new XMLHttpRequest()
   xmlHttp.withCredentials = true
-  xmlHttp.open("GET", "http://ec2-52-39-141-177.us-west-2.compute.amazonaws.com:3000/auth/userData/allData", false); // false for synchronous request
+  xmlHttp.open("GET", "https://api.sustainability.oregonstate.edu/auth/userData/allData", false); // false for synchronous request
   xmlHttp.send(null);
   var res = xmlHttp.responseText;
-  if (!res.includes("Error")) {
+  if (res.includes('{')) {
     updateUserVariables(res);
     downloadHistData();
     closeONIDWindow();
@@ -599,11 +599,16 @@ function downloadHistData() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4) {
-      historicalData = JSON.parse(xhttp.responseText)
+      try {
+        historicalData = JSON.parse(xhttp.responseText)
+      } catch(err) {
+        console.log(err)
+      }
+      console.log(xhttp.responseText)
     }
   }
 
-  xhttp.open('GET', 'http://ec2-52-39-141-177.us-west-2.compute.amazonaws.com:3000/carbon/download/'+ uid, true)
+  xhttp.open('GET', 'https://api.sustainability.oregonstate.edu/carbon/download/'+ uid, true)
   xhttp.send()
 }
 
@@ -629,7 +634,7 @@ function updateDB() {
 
     // Send the request
     let xhttp = new XMLHttpRequest();
-    xhttp.open('POST', 'http://ec2-52-39-141-177.us-west-2.compute.amazonaws.com:3000/carbon/upload', true);
+    xhttp.open('POST', 'https://api.sustainability.oregonstate.edu/carbon/upload', true);
     xhttp.setRequestHeader('Content-type', 'application/JSON');
     xhttp.send(JSON.stringify(userObject));
   }
