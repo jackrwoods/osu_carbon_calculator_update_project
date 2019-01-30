@@ -1,4 +1,7 @@
 # OSU Carbon Calculator
+## NOTE: This is NOT the actual Carbon Calculator.
+This repo is being used for temporary GitHub pages hosting. The real Carbon Calculator is [here.](https://github.com/OSU-Sustainability-Office/osu_carbon_calculator_update_project)
+
 ## Introduction
 This carbon footprint calculator has been developed to help members of the Oregon State University community understand the connection between their everyday actions and their carbon emissions. This is an important step in [Oregon State University’s initiative to be carbon neutral by 2025](http://fa.oregonstate.edu/sustainability/planning-policy-assessment/institutional-carbon-neutrality/osu-carbon-planning). This calculator was originally created by OSU grad students, and was based on a calculator developed by Santa Clara University. For more information, please visit [their website](http://www.scu.edu/ethics/practicing/focusareas/environmental_ethics/carbon-footprint/create_calc.html).
 
